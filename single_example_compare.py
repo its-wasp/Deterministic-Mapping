@@ -3,11 +3,11 @@ from comparison import find_best_match
 import json
 import random
 
-def test_single_input(unclean_input):
+def test_single_input(unclean_input, clean_file):
     """finds the best match present in the master for a single unclean input"""
 
     d2 = categorize_medicine(unclean_input, is_master=False)
-    best_m = find_best_match(d2, "clean_data.json")
+    best_m = find_best_match(d2, clean_file)
     return best_m[0], best_m[1]
 
 
