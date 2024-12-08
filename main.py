@@ -2,10 +2,9 @@ import json
 import argparse
 from find_attributes import categorize_medicine
 from single_example_compare import test_single_input
-
 def remark(score):
     """Returns a remark based on the score."""
-    if score >= 0.95:
+    if score >= 0.90:
         return "Exact Match"
     elif score >= 0.8:
         return "Highly Similar"

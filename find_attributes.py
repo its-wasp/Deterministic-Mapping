@@ -28,7 +28,7 @@ def get_substitution_regex(substitute):
     return regex
 
 def clean_text(text):
-    
+    """Cleans up text according to the clean_up_regexes dictionary."""
     for _, (pattern, replacement) in clean_up_regexes.items():
         
         text = re.sub(pattern, replacement, text)
@@ -67,11 +67,9 @@ def categorize_medicine(data, is_master=True):
     pack_size_label = data.get(pack_size_key, "").lower().strip()
     pack_size_quantity = extract_quantity_from_pack_size(pack_size_label)
     manufacturer = clean_text(data.get(manufacturer_key, "").lower().strip())
+    content = clean_text(data.get(content_key, "").lower().strip()).replace("plus ", "").strip()
     
-    if(is_master):
-        content = clean_text(data.get(content_key, "").lower().strip()).replace("plus ", "").strip()
-    else:
-        content = clean_text(data.get(content_key, "").lower().strip())
+    content = re.sub(r"\b[a-z]\b|\.|\d+|%", "", content).replace("  ", "").strip() #removing single characters, digits, %, . and extra spaces
     
     return {
         "name": name.strip(),
@@ -86,51 +84,74 @@ if __name__ == "__main__":
     unclean_input = {
         "c_barcode": ".",
         "j_alternatives": [],
-        "c_hsn_code": "30049099",
+        "c_hsn_code": "30049029",
         "c_gst": "12.00",
         "c_stock_availability": "0",
         "j_molecules": [
             {
-                "c_molecule_code": "MC0254",
-                "c_molecule_name": "CELECOXIB",
-                "c_description": "NSAIDs",
-                "c_usage": "Oral capsulesOral solution",
-                "c_note": "FDA -LabeledAnkylosing spondylitis, Management of signs and symptomsJuvenile rheumatoid arthritisMigraine, Acute; with or without auraOsteoarthritisPain, acutePrimary dysmenorrheaRheumatoid arthritisNON-FDA LabeledColorectal adenoma, Sporadic, High-risk patients; prophylaxisCoronary stent stenosis, Adjunct; Prophylaxis Gout, acutePostoperative pain, acute",
+                "c_molecule_code": "MC0873",
+                "c_molecule_name": "OFLOXACIN",
+                "c_description": "Antibacterial, Antibiotic, Fluoroquinolone",
+                "c_usage": "Oral tablet, ophthalmic solution",
+                "c_note": "FDA labeled - Acute otitis media, Bacterial conjunctivitis, Chlamydial infection, Community acquired pneumonia, Corneal ulcer, Cystitis, Gonorrhea, Infection of skin, Pelvic inflammatory disease, Prostatitis, Urinary tract infection, Infection due to staphylococcus aureus, Nongonococcal urethritisNON-FDA labeled - Helicobacter pylori gastrointestinal tract infection, Leprosy, Tuberculosis, Typhoid fever, Upper respiratory tract infection, Infective cholangitis, Sepsis.",
                 "c_side_effect": "Category C/ Risk in animals, risk cannot be ruled out in humans",
-                "c_contra_indications": "Hypersensitivity to the drugs which are hypersensitivity to to celecoxib or any components of the drug productHistory of asthma, Urticaria, or other allergic-type reactions after taking aspirin or other NSAIDs; severe, sometimes fatal, anaphylactic reactions to NSAIDs have been reported In the setting of CABG surgery In patients who have demonstrated allergic-type reactions to sulfoamides"
-            }
-        ],
-        "c_item_code": "037065",
-        "c_item_name": "CELCOX 100MG CAP",
-        "c_pack_name": "10`S",
-        "c_mfg_code": "M01376",
-        "c_mfg_name": "LUPIN LIMITED (ENDEAVOUR)",
-        "n_mrp": 172.9,
-        "n_pack_size": 10,
-        "j_item_thumbnail_images": [
+                "c_contra_indications": "hypersensitive to ofloxacin or other quinolones."
+            },
             {
-                "c_thumbnail_image": "NaN"
+                "c_molecule_code": "MC0886",
+                "c_molecule_name": "ORNIDAZOLE",
+                "c_description": "Antiprotozoal, Antiparasitic, Nitro imidazole",
+                "c_usage": "TabletInjectionOral Suspension",
+                "c_note": "FDA Labeled -AmoebiasisAnaerobic bacterial infectionsChlamydia infectionGiardiasisSurgical site infectionsVaginal infectionsTrichomoniasis",
+                "c_side_effect": "Category C/ Risk in animals, risk cannot be ruled out in humans",
+                "c_contra_indications": "Hypersensitivity to ornidazole or other nitro imidazole derivatives"
+            },
+            {
+                "c_molecule_code": "MC1179",
+                "c_molecule_name": "TERBINAFINE",
+                "c_description": "Antifungal, Allylamine",
+                "c_usage": "TabletsOral granulesTopiccal solutionsCreams",
+                "c_note": "FDA labeled Dermal mycosisOnychomycosis due to dermatophyteTinea capitisNON-FDA labeled Seborrheic dermatitis",
+                "c_side_effect": "Category C/ Risk in animals, risk cannot be ruled out in humans",
+                "c_contra_indications": "Chronic liver diseaseHistory of Allergic reaction to oral Terbinafine"
+            },
+            {
+                "c_molecule_code": "MC0313",
+                "c_molecule_name": "CLOBETASOL",
+                "c_description": "Corticosteroid",
+                "c_usage": "Topical creamLotionOintment",
+                "c_note": "FDA Labeled :Disorder of skinPlaque psoriasisScalp psoriasisNon-FDA Labeled :Genital lichen sclerosisVesicular stomatitis",
+                "c_side_effect": "Category B/ No evidence of risk in animals but limited human model studies",
+                "c_contra_indications": "Hypersensitivity to clobetasolPrimary scalp infectionOpthalmic use"
             }
         ],
-        "c_contains": "CELECOXIB",
+        "c_item_code": "368145",
+        "c_item_name": "DERMIKEM OC CREAM",
+        "c_pack_name": "15GM",
+        "c_mfg_code": "M00178",
+        "c_mfg_name": "ALKEM LABORATORIES (GENERIC/FUTURA)",
+        "n_mrp": 92.0,
+        "n_pack_size": 1,
+        "j_item_thumbnail_images": [
+            {}
+        ],
+        "c_contains": "CLOBETASOL+OFLOXACIN+ORNIDAZOLE+TERBINAFINE",
         "c_watchlist_status": "N",
         "c_shortbook_status": "N",
         "c_discount_status": "N",
-        "c_pack_type_name": "STRIPS",
+        "c_pack_type_name": "TUBE",
         "j_item_images": [
-            {
-                "c_item_image": "NaN"
-            }
+            {}
         ],
         "category": "MEDICINE"
     }
 
     clean_input = {
-        "name": "Pozone-S 1500 Injection",
-        "price": 230,
-        "manufacturer_name": "Positif Life sciences",
-        "pack_size_label": "vial of 1 Injection",
-        "content": "Cefoperazone (1000mg) + Sulbactam (500mg)"
+        "name": "Dermikem OC Cream",
+        "price": 84,
+        "manufacturer_name": "Alkem Laboratories Ltd",
+        "pack_size_label": "tube of 15 gm Cream",
+        "content": "Terbinafine (1% w/w) + Clobetasol (0.05% w/w) + Ofloxacin (0.75% w/w) + Ornidazole (2% w/w)"
     }
     
     #checking the output attribute dictionaries

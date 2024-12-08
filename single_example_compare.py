@@ -26,54 +26,78 @@ if __name__ == "__main__":
     
     #testing one input 
     
-    # unclean_input = {
-    #     "c_barcode": ".",
-    #     "j_alternatives": [],
-    #     "c_hsn_code": "30049061",
-    #     "c_gst": "12.00",
-    #     "c_stock_availability": "0",
-    #     "j_molecules": [
-    #         {
-    #             "c_molecule_code": "MC0910",
-    #             "c_molecule_name": "PARACETAMOL",
-    #             "c_description": "Analgesic, Antipyretic",
-    #             "c_usage": "Oral Tablet -  Chewable, Disentegrate,  Intravenous solution, Suspension, Rectal suppository",
-    #             "c_note": "FDA labeled - Fever, mild to moderate pain, pain in combination with opioidsNON-FDA labeled - Migraine",
-    #             "c_side_effect": "Category C/ Risk in animals, risk cannot be ruled out in humans",
-    #             "c_contra_indications": "acute and severe hepatic diseases, severe hepatic impairment, hypersensitivity to acetaminophen"
-    #         }
-    #     ],
-    #     "c_item_code": "192032",
-    #     "c_item_name": "DOLO DROPS 15ML",
-    #     "c_pack_name": "15ML",
-    #     "c_mfg_code": "M01566",
-    #     "c_mfg_name": "MICRO LABS (GTF 1)",
-    #     "n_mrp": 30.07,
-    #     "n_pack_size": 1,
-    #     "j_item_thumbnail_images": [
-    #         {
-    #             "c_thumbnail_image": "https://lcitemimages.blob.core.windows.net/item-images/20211109/dolo_drops_15ml_0_29111.jpg"
-    #         }
-    #     ],
-    #     "c_contains": "PARACETAMOL",
-    #     "c_watchlist_status": "N",
-    #     "c_shortbook_status": "N",
-    #     "c_discount_status": "N",
-    #     "c_pack_type_name": "DROPS",
-    #     "j_item_images": [
-    #         {
-    #             "c_item_image": "https://lcitemimages.blob.core.windows.net/item-images/20211109/dolo_drops_15ml_0_29111.jpg"
-    #         }
-    #     ],
-    #     "category": "MEDICINE"
-    # }
+    unclean_input = {
+        "c_barcode": ".",
+        "j_alternatives": [],
+        "c_hsn_code": "3004",
+        "c_gst": "12.00",
+        "c_stock_availability": "0",
+        "j_molecules": [
+            {
+                "c_molecule_code": "MC0771",
+                "c_molecule_name": "MENTHOL",
+                "c_description": "Antitussive oropharyngeal",
+                "c_usage": "Lozenges",
+                "c_note": "FDA labeled pharyngitis                       Cough",
+                "c_side_effect": "Category C/ Risk in animals, risk cannot be ruled out in humans",
+                "c_contra_indications": "Hypersensitivity to menthol"
+            },
+            {
+                "c_molecule_code": "MC0786",
+                "c_molecule_name": "METHYL SALICYLATE",
+                "c_description": "Analgesic ",
+                "c_usage": "Topical creams Lotions ",
+                "c_note": "Analgesia for minor muscle and joint pains",
+                "c_side_effect": "Category C/ Risk in animals, risk cannot be ruled out in humans",
+                "c_contra_indications": "Hypersentivity to methyl salicylate "
+            },
+            {
+                "c_molecule_code": "MC0391",
+                "c_molecule_name": "DICLOFENAC DIMETHYLAMINE",
+                "c_description": "Phenylacetic acid derivative, Non Steroidal Anti Inflammatory Drug (NSAID)",
+                "c_usage": "Tablet, capsule, Intravenous (IV),  Opthalmic solution            Topical : Gel, Patch",
+                "c_note": "Muscle and joint pain due to sprains",
+                "c_side_effect": "Category C/ Risk in animals, risk cannot be ruled out in humans",
+                "c_contra_indications": "Pregnancy (3rd trimester), Asthmatic attacksRhinitisUrticaria"
+            },
+            {
+                "c_molecule_code": "MC0719",
+                "c_molecule_name": "LINSEED OIL",
+                "c_description": "Cardiovascular herbal, dermatology herbal, gastrointestinal herbal",
+                "c_usage": "Oils, seed",
+                "c_note": "Bowel obstructionDry eyeConstipation",
+                "c_side_effect": "Category X/ Contraindicated in pregnancy",
+                "c_contra_indications": "EndometriosisBleeding disordersUterine fibroids"
+            }
+        ],
+        "c_item_code": "545884",
+        "c_item_name": "NERVSHINE GEL",
+        "c_pack_name": "30GM",
+        "c_mfg_code": "M00130",
+        "c_mfg_name": "AKUMENTIS HEALTHCARE (DELIGHTS)",
+        "n_mrp": 192.0,
+        "n_pack_size": 1,
+        "j_item_thumbnail_images": [
+            {}
+        ],
+        "c_contains": "DICLOFENAC+LINSEED OIL+MENTHOL+METHYL SALICYLATE",
+        "c_watchlist_status": "N",
+        "c_shortbook_status": "N",
+        "c_discount_status": "N",
+        "c_pack_type_name": "BOTTLE",
+        "j_item_images": [
+            {}
+        ],
+        "category": "MEDICINE"
+    }
     
-    # best_match, score = test_single_input(unclean_input)
-    # print(f"Unclean Input: {categorize_medicine(unclean_input, is_master=False)}")
-    # print(f"Best Match: {best_match[0]} : {categorize_medicine(best_match[1])}")
-    # print(f"Score: {score}")
-    # print("\n")
+    best_match, score = test_single_input(unclean_input, "clean_data.json")
+    print(f"Unclean Input: {categorize_medicine(unclean_input, is_master=False)}")
+    print("\n")
+    print(f"Best Match: {best_match[0]} : {categorize_medicine(best_match[1])}")
+    print(f"Score: {score}")
+    print("\n")
     
     #tesing one random input
     
-    test_one_random_input()
+    # test_one_random_input()

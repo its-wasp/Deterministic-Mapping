@@ -16,7 +16,7 @@ def compare_dicts(dict1, dict2, WEIGHTS):
         
         if key == "name":
             if value1.split()[0].lower().strip() != value2.split()[0].lower().strip():
-                weight /= 2 # penality for different brand names
+                weight = weight * 0.8 # penality for different brand names
         
         similarity = fuzz.ratio(str(value1).lower().strip(), str(value2).lower().strip()) / 100
         weighted_score = similarity * weight
